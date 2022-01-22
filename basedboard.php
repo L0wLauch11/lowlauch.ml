@@ -9,6 +9,8 @@
     <header>
         <h1>based board</h1>
         <h6>Regeln: kein cp</h6>
+        <a href="https://github.com/L0wLauch11/lowlauch.ml">source</a>
+        <a href="basedboard.php">based board</a> 
     </header>
 
     <body>
