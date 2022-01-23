@@ -1,18 +1,29 @@
-html {
-    background-color: antiquewhite;
-    padding-left: 32px;
-    padding-right: 32px;
-    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 18px;
+a {
+    color: #ebcb8b;
+}
+
+#posts-box {
+    background-color: #434c5e;
+    outline-color: #5e81ac;
+    outline-style: dotted;
+    padding: 8px;
 }
 
 .post {
-    background-color: bisque;
-    padding: 4px;
-    margin-bottom: 32px;
+    background-color: #3b4252;
+    padding: 8px 16px 8px 16px;
+    margin-bottom: 16px;
 }
 
-#text-box {
-    width: 25%;
+#textbox {
+    width: 50%;
     height: 250px;
+}
+
+img {
+    max-width: 100%;
+}
+
+iframe {
+    max-width: 100%;
 }

@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <title>gaming seite</title>
     <link href="style.css" rel="stylesheet">
+    <link href="downloadmirror.css" rel="stylesheet">
 </head>
 
 <header>
-    <a href="https://github.com/L0wLauch11/lowlauch.ml">source</a>
-    <a href="index.php">file mirror</a> 
+    <a href="https://github.com/L0wLauch11/lowlauch.ml" target="_blank">source</a>
+    <a href="basedboard.php">based board</a>
 </header>
 
 <body>
@@ -17,10 +18,11 @@
 
     <form enctype="multipart/form-data" action="uploadfile.php" method="POST">
         <input type="hidden" name="MAX_FILE_SIZE" value="107400000000"> <!-- Max filesize: 100GB -->
-        Eigene Dateien hochladen: <input name="userfile" type="file">
-        <input type="password" name="password">
-        <input type="submit" value="Hochladen">
+        Eigene Dateien hochladen: <input class="button" name="userfile" type="file"> <br>
+        Passwort: <input class="textbox" type="password" name="password">
+        <input class="button" type="submit" value="Hochladen"> <br><hr>
     </form>
+
     <div id="download-box">
         <?php
         function GetDirectorySize($path)
