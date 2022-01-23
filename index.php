@@ -20,7 +20,8 @@
         <input type="hidden" name="MAX_FILE_SIZE" value="107400000000"> <!-- Max filesize: 100GB -->
         Eigene Dateien hochladen: <input class="button" name="userfile" type="file"> <br>
         Passwort: <input class="textbox" type="password" name="password">
-        <input class="button" type="submit" value="Hochladen"> <br><hr>
+        <input class="button" type="submit" value="Hochladen">
+        versteckte Datei? <input class="checkbox" type="checkbox" name="hidden"><br><hr>
     </form>
 
     <div id="download-box">
@@ -46,13 +47,18 @@
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot()) {
                 $filename = $fileinfo->getFilename();
-                echo
-                "<ul id='download-list'>"
+
+                // Don't show hidden folder
+                if($filename != "hidden")
+                {
+                    echo
+                    "<ul id='download-list'>"
                     . "<li>"
                     . $filename
                     . "<br><a href='files/" . $filename . "' download>Download</a> </li>
                         </ul>
                         ";
+                }
             }
         }
         ?>

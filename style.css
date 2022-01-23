@@ -11,6 +11,11 @@ html {
     margin-right: auto;
 }
 
+.checkbox {
+    height: 18px;
+    width: 18px;
+}
+
 .textbox {
     padding: 8px 12px;
     margin: 8px 0;

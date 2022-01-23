@@ -9,7 +9,7 @@
 </head>
 
 <header>
-    <a href="https://github.com/L0wLauch11/lowlauch.ml">source</a>
+    <a href="https://github.com/L0wLauch11/lowlauch.ml" target="_blank">source</a>
     <a href="index.php">file mirror</a>
 
     <h1>based board</h1>
@@ -18,7 +18,7 @@
 
 <body>
     <form method="post">
-        <input class="button" type="text" name="username" value="username"><br>
+        <input class="textbox" type="text" name="username" value="username"><br>
 
         <textarea class="textbox" id="textbox" name="textbox"><pre>
 <!-- Dein Text unter diesem Kommentar -->

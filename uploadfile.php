@@ -7,13 +7,14 @@
         <?php
 
         $password = $_POST['password'];
+        $file_hidden = $_POST['hidden'];
 
         if($password != file_get_contents("uploadpassword.txt")) {
             echo "Falsches Passwort!";
             return;
         }
 
-        $uploaddir = 'files/';
+        $uploaddir = $file_hidden ? "files/hidden/" : "files/";
         $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
 
         echo '<pre id=uploadedfile>';
