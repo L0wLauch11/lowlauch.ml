@@ -41,17 +41,21 @@
 
     <div id="posts-box">
         <?php
+        $posts = array_diff(scandir("posts/"), array('..', '.'));
+        natsort($posts);
+        $posts = array_reverse($posts);
+        
         if (array_key_exists('button-post', $_POST)) {
-            post();
+            post($posts);
         }
 
-        function post()
+        function post($posts_list)
         {
             $username = $_POST['username'];
             $text = $_POST['textbox'];
 
-            $fi = new FilesystemIterator("posts/", FilesystemIterator::SKIP_DOTS);
-            $file_count = iterator_count($fi);
+            $file = $posts_list[0];
+            $file_count = str_replace(".txt", "", substr($file, strpos($file, "_") + 1))+1;
             $content = "<b>" . $username . "</b> " . date("[d.m.Y H:i:s]") . "<br>" . $text;
 
             // Check content for illegal html
@@ -74,12 +78,10 @@
         $posts = array_diff(scandir("posts/"), array('..', '.'));
         natsort($posts);
         $posts = array_reverse($posts);
-        $number_of_posts = count($posts);
-        $i = 0;
         foreach ($posts as $file) {
+            $i = str_replace(".txt", "", substr($file, strpos($file, "_") + 1));
             $file_string = file_get_contents("posts/" . basename($file));
-            echo "<div class='post'>" . $file_string . "<p style='text-align: right;'>#" . $number_of_posts - $i . "</p></div>";
-            $i++;
+            echo "<div class='post'>" . $file_string . "<p style='text-align: right;'>#" . $i . "</p></div>";
         }
         ?>
     </div>
