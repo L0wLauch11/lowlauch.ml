@@ -5,8 +5,8 @@ body {
 #download-box {
     text-align: left;
     background-color: #3b4252;
-    outline-color: #5e81ac;
-    outline-style: dotted;
+    border: 2px dotted #5e81ac;
+    border-radius: 4px;
     padding: 8px;
 }
 
@@ -14,8 +14,13 @@ body {
     color: #ebcb8b;
 }
 
-#download-list {
+#download-list{
+    list-style-type: none;
+    padding: 6px 12px;
+}
+
+#download-list li{
     background-color: #434c5e;
+    padding: 16px 24px;
     margin-bottom: 16px;
-    list-style: none;
 }

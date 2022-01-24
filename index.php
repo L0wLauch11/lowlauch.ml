@@ -2,18 +2,22 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
     <title>gaming seite</title>
-    <link href="style.css" rel="stylesheet">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link href="master.css" rel="stylesheet">
     <link href="downloadmirror.css" rel="stylesheet">
 </head>
 
-<header>
-    <a href="https://github.com/L0wLauch11/lowlauch.ml" target="_blank">source</a>
-    <a href="basedboard.php">based board</a>
-</header>
-
 <body>
+    <header>
+        <?php
+        include "navigation.html";
+        ?>
+    </header>
+
     <h1>coole downloads</h1>
 
     <form enctype="multipart/form-data" action="uploadfile.php" method="POST">
@@ -42,6 +46,7 @@
         $dir_size = GetDirectorySize("files")/1000000000; // size in gb
         echo "Speicher: " . round($dir_size) . "GB / " . round($free_space) . "GB";
         
+        print "<ul id='download-list'>";
         // Loop through directory and list all files
         $dir = new DirectoryIterator("files");
         foreach ($dir as $fileinfo) {
@@ -51,16 +56,11 @@
                 // Don't show hidden folder
                 if($filename != "hidden")
                 {
-                    echo
-                    "<ul id='download-list'>"
-                    . "<li>"
-                    . $filename
-                    . "<br><a href='files/" . $filename . "' download>Download</a> </li>
-                        </ul>
-                        ";
+                    echo "<li>" . $filename . "<br><a href='files/" . $filename . "' download>Download</a> </li>";
                 }
             }
         }
+        print("</ul>")
         ?>
     </div>
 </body>

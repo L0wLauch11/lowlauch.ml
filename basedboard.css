@@ -1,23 +1,39 @@
+#title {
+    text-align: center;
+}
+
 a {
     color: #ebcb8b;
 }
 
 #posts-box {
-    background-color: #434c5e;
-    outline-color: #5e81ac;
-    outline-style: dotted;
+    background-color: #3b4252;
+    border: 2px dotted #5e81ac;
+    border-radius: 4px;
     padding: 8px;
 }
 
 .post {
-    background-color: #3b4252;
+    background-color: #434c5e;
     padding: 8px 16px 8px 16px;
     margin-bottom: 16px;
 }
 
+.textbox {
+    width: 200px;
+}
+
 #textbox {
-    width: 50%;
+    width: 320px;
     height: 250px;
+}
+
+pre {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
 }
 
 img {
