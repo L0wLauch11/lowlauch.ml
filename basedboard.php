@@ -19,7 +19,9 @@
     </header>
 
     <h1 id="title">based board</h1>
-
+    <p>Regeln: keine +18 Inhalte</p>
+    <p><b>Nachricht posten: </b></p>
+    
     <form method="post">
         <input class="textbox" type="text" name="username" value="username"><br>
 
