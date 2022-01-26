@@ -28,7 +28,7 @@
         window.onscroll = function(ev) {
             let pageY = (window.innerHeight + window.pageYOffset);
             if (hasResponded && pageY != lastScrollLocation && pageY >= document.body.offsetHeight) {
-                postsOffset += 50;
+                postsOffset += postsAmount;
                 lastScrollLocation = window.innerHeight + window.pageYOffset;
                 hasResponded = false;
 
@@ -48,6 +48,9 @@
 
         // Stop user from posting twice
         if (window.history.replaceState) {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+
             window.history.replaceState(null, null, window.location.href);
         }
     </script>

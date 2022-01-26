@@ -2,7 +2,7 @@
 print "<div id='posts-box'>";
 
 $posts_offset = 0;
-$posts_amount = 10;
+$posts_amount = 50;
 
 $posts = array_diff(scandir("posts/"), array('..', '.'));
 natsort($posts);
