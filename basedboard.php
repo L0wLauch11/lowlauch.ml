@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link href="master.css" rel="stylesheet">
     <link href="basedboard.css" rel="stylesheet">
 </head>
@@ -18,16 +18,49 @@
         ?>
     </header>
 
+    <script>
+        let postsAmount = 50;
+        let postsOffset = 0;
+        let hasResponded = true;
+        let lastScrollLocation = -1; // cringe
+
+        // Load new content
+        window.onscroll = function(ev) {
+            let pageY = (window.innerHeight + window.pageYOffset);
+            if (hasResponded && pageY != lastScrollLocation && pageY >= document.body.offsetHeight) {
+                postsOffset += 50;
+                lastScrollLocation = window.innerHeight + window.pageYOffset;
+                hasResponded = false;
+
+                let sendString = "postsAmount=" + postsAmount + "&postsOffset=" + postsOffset;
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("posts-box").innerHTML += this.responseText;
+                        hasResponded = true;
+                    }
+                };
+                xmlhttp.open("GET", "basedboardLoadPosts.php?" + sendString, true);
+                xmlhttp.send();
+            }
+        };
+
+
+        // Stop user from posting twice
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+
     <h1 id="title">based board</h1>
     <p>Regeln: keine +18 Inhalte</p>
     <p><b>Nachricht posten: </b></p>
-    
+
     <form method="post">
         <input class="textbox" type="text" name="username" value="username"><br>
 
         <textarea class="textbox" id="textbox" name="textbox"><pre>
-<!-- Dein Text unter diesem Kommentar -->
-
+text
 </pre></textarea><br>
 
         <button class="button" name="button-post">Posten</button>
@@ -35,58 +68,50 @@
 
     <hr><br>
 
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
+    <?php
+    $posts = array_diff(scandir("posts/"), array('..', '.'));
+    natsort($posts);
+    $posts = array_reverse($posts);
 
-    <div id="posts-box">
-        <?php
-        $posts = array_diff(scandir("posts/"), array('..', '.'));
-        natsort($posts);
-        $posts = array_reverse($posts);
-        
-        if (array_key_exists('button-post', $_POST)) {
-            post($posts);
-        }
+    if (array_key_exists('button-post', $_POST)) {
+        post($posts);
+    }
 
-        function post($posts_list)
-        {
-            $username = $_POST['username'];
-            $text = $_POST['textbox'];
+    function post($posts_list)
+    {
+        $username = $_POST['username'];
 
-            $file = $posts_list[0];
-            $file_count = str_replace(".txt", "", substr($file, strpos($file, "_") + 1))+1;
-            $content = "<b>" . $username . "</b> " . date("[d.m.Y H:i:s]") . "<br>" . $text;
-
-            // Check content for illegal html
-            $illegal = [
-                "<style",
-                "<script",
-                "<?",
-            ];
-
-            foreach ($illegal as $illegal_statement) {
-                if (str_contains($content, $illegal_statement))
-                    return;
-            }
-
-            // Write to file
-            file_put_contents("posts/p_" . $file_count . ".txt", $content);
+        if ($username == "username") {
+            print "Du musst deinen Benutzernamen ändern";
+            return;
         }
 
-        // List posts
-        $posts = array_diff(scandir("posts/"), array('..', '.'));
-        natsort($posts);
-        $posts = array_reverse($posts);
-        foreach ($posts as $file) {
-            $i = str_replace(".txt", "", substr($file, strpos($file, "_") + 1));
-            $file_string = file_get_contents("posts/" . basename($file));
-            echo "<div class='post'>" . $file_string . "<p style='text-align: right;'>#" . $i . "</p></div>";
+        $text = $_POST['textbox'];
+
+        $file = $posts_list[0];
+        $file_count = str_replace(".txt", "", substr($file, strpos($file, "_") + 1)) + 1;
+        $content = "<b>" . $username . "</b> " . date("[d.m.Y H:i:s]") . "<br>" . $text;
+
+        // Check content for illegal html
+        $illegal = [
+            "<style",
+            "<script",
+            "<?",
+        ];
+
+        foreach ($illegal as $illegal_statement) {
+            if (str_contains($content, $illegal_statement))
+                return;
         }
-        ?>
-    </div>
+
+        // Write to file
+        file_put_contents("posts/p_" . $file_count . ".txt", $content);
+    }
+
+    // List posts
+    include "basedboardLoadFirst.php";
+
+    ?>
 
 </body>
 
