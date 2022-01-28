@@ -14,13 +14,18 @@ body {
     color: #ebcb8b;
 }
 
-#download-list{
+#download-list {
     list-style-type: none;
     padding: 6px 12px;
 }
 
-#download-list li{
+#download-list li {
     background-color: #434c5e;
     padding: 16px 24px;
     margin-bottom: 16px;
+}
+
+#download-list .date {
+    color: #a0a7b4;
+    display: inline;
 }

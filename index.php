@@ -52,11 +52,12 @@
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot()) {
                 $filename = $fileinfo->getFilename();
+                $file_mod_time = filemtime("files/" . $filename);
 
                 // Don't show hidden folder
                 if($filename != "hidden")
                 {
-                    echo "<li>" . $filename . "<br><a href='files/" . $filename . "' download>Download</a> </li>";
+                    echo "<li>" . $filename . "<div class='date'> " . date("[d.m.Y H:i:s]", $file_mod_time) . "</div><br><a href='files/" . $filename . "' download>Download</a> </li>";
                 }
             }
         }
