@@ -15,10 +15,24 @@
         }
 
         $uploaddir = $file_hidden ? "files/hidden/" : "files/";
-        $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+        $uploadfile = basename($_FILES['userfile']['name']);
+
+        $uploadfile_seperated = explode(".", $uploadfile);
+        $uploadfile_extension = $uploadfile_seperated[array_key_last($uploadfile_seperated)];
+        $uploadfile_name = str_replace($uploadfile_extension, "", $uploadfile);
+        
+        // Treat duplicate files properly
+        if(file_exists($uploaddir . $uploadfile)) {
+            $uploadfile = $uploadfile_name . date("_d-m-Y H-i-s") . "." . $uploadfile_extension;
+        }
+
+        // Uploading metadata
+        if($uploadfile_extension == "meta") {
+            $uploaddir = "files/metadata/";
+        }
 
         echo '<pre id=uploadedfile>';
-        if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+        if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploaddir . $uploadfile)) {
             echo "Fertig hochgeladen.\n";
             header('Location: index.php');
         } else {

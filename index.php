@@ -55,13 +55,19 @@
                 $file_mod_time = filemtime("files/" . $filename);
 
                 // Don't show hidden folder
-                if($filename != "hidden")
-                {
-                    echo "<li>" . $filename . "<div class='date'> " . date("[d.m.Y H:i:s]", $file_mod_time) . "</div><br><a href='files/" . $filename . "' download>Download</a> </li>";
+                if($filename != "hidden" && $filename != "metadata") {
+                    echo "<li>" . $filename . "<div class='date'> " . date("[d.m.Y H:i:s]", $file_mod_time) . "</div><br>";
+                    
+                    // Check for metadata from file
+                    if(file_exists("files/metadata/" . $filename . ".meta")) {
+                        echo "<i>" . file_get_contents("files/metadata/" . $filename . ".meta") . "</i><br>";
+                    }
+
+                    echo "<a href='files/" . $filename . "' download>Download</a> </li>";
                 }
             }
         }
-        print("</ul>")
+        print "</ul>"
         ?>
     </div>
 </body>
