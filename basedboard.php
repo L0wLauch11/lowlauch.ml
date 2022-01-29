@@ -72,7 +72,7 @@ text
     <hr><br>
 
     <?php
-    $posts = array_diff(scandir("posts/"), array('..', '.'));
+    $posts = array_diff(scandir('posts/'), array('..', '.'));
     natsort($posts);
     $posts = array_reverse($posts);
 
@@ -84,22 +84,23 @@ text
     {
         $username = $_POST['username'];
 
-        if ($username == "username") {
-            print "Du musst deinen Benutzernamen ändern";
+        if ($username == 'username') {
+            print 'Du musst deinen Benutzernamen ändern';
             return;
         }
 
         $text = $_POST['textbox'];
+        $date_now = date('[d.m.Y H:i:s]');
 
         $file = $posts_list[0];
-        $file_count = str_replace(".txt", "", substr($file, strpos($file, "_") + 1)) + 1;
-        $content = "<b>" . $username . "</b> " . date("[d.m.Y H:i:s]") . "<br>" . $text;
+        $file_count = str_replace('.txt', '', substr($file, strpos($file, '_') + 1)) + 1;
+        $content = "<b>$username</b> $date_now<br>$text";
 
         // Check content for illegal html
         $illegal = [
-            "<style",
-            "<script",
-            "<?",
+            '<style',
+            '<script',
+            '<?',
         ];
 
         foreach ($illegal as $illegal_statement) {
@@ -108,11 +109,11 @@ text
         }
 
         // Write to file
-        file_put_contents("posts/p_" . $file_count . ".txt", $content);
+        file_put_contents("posts/p_$file_count.txt", $content);
     }
 
     // List posts
-    include "basedboardLoadFirst.php";
+    include 'basedboardLoadPosts.php';
 
     ?>
 

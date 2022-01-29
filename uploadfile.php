@@ -1,49 +1,51 @@
 <html>
-    <header>
-        <h1>Datei hochladen</h1>
-    </header>
-    
-    <body>
-        <?php
+<header>
+    <h1>Datei hochladen</h1>
+</header>
 
-        $password = $_POST['password'];
-        $file_hidden = $_POST['hidden'];
+<body>
+    <?php
 
-        if($password != file_get_contents("uploadpassword.txt")) {
-            echo "Falsches Passwort!";
-            return;
-        }
+    $password = $_POST['password'];
+    $file_hidden = $_POST['hidden'];
+    $date_now = date('_d-m-Y H-i-s');
 
-        $uploaddir = $file_hidden ? "files/hidden/" : "files/";
-        $uploadfile = basename($_FILES['userfile']['name']);
+    if ($password != file_get_contents('uploadpassword.txt')) {
+        echo 'Falsches Passwort!';
+        return;
+    }
 
-        $uploadfile_seperated = explode(".", $uploadfile);
-        $uploadfile_extension = $uploadfile_seperated[array_key_last($uploadfile_seperated)];
-        $uploadfile_name = str_replace($uploadfile_extension, "", $uploadfile);
-        
-        // Treat duplicate files properly
-        if(file_exists($uploaddir . $uploadfile)) {
-            $uploadfile = $uploadfile_name . date("_d-m-Y H-i-s") . "." . $uploadfile_extension;
-        }
+    $uploaddir = $file_hidden ? 'files/hidden/' : 'files/';
+    $uploadfile = basename($_FILES['userfile']['name']);
 
-        // Uploading metadata
-        if($uploadfile_extension == "meta") {
-            $uploaddir = "files/metadata/";
-        }
+    $uploadfile_seperated = explode('.', $uploadfile);
+    $uploadfile_extension = $uploadfile_seperated[array_key_last($uploadfile_seperated)];
+    $uploadfile_name = str_replace($uploadfile_extension, '', $uploadfile);
 
-        echo '<pre id=uploadedfile>';
-        if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploaddir . $uploadfile)) {
-            echo "Fertig hochgeladen.\n";
-            header('Location: index.php');
-        } else {
-            echo "Upload fehlgeschlagen";
-        }
+    // Treat duplicate files properly
+    if (file_exists($uploaddir . $uploadfile)) {
+        $uploadfile = "$uploadfile_name $date_now.$uploadfile_extension";
+    }
 
-        echo 'Debugging Informationen:';
-        print_r($_FILES);
+    // Uploading metadata
+    if ($uploadfile_extension == 'meta') {
+        $uploaddir = 'files/metadata/';
+    }
 
-        print "</pre>";
-        
-        ?>
-    </body>
+    echo '<pre id=uploadedfile>';
+    if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploaddir . $uploadfile)) {
+        echo "Fertig hochgeladen.\n";
+        header('Location: index.php');
+    } else {
+        echo 'Upload fehlgeschlagen';
+    }
+
+    echo 'Debugging Informationen:';
+    print_r($_FILES);
+
+    print '</pre>';
+
+    ?>
+</body>
+
 </html>

@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link href="master.css" rel="stylesheet">
     <link href="downloadmirror.css" rel="stylesheet">
 </head>
@@ -25,7 +25,8 @@
         Eigene Dateien hochladen: <input class="button" name="userfile" type="file"> <br>
         Passwort: <input class="textbox" type="password" name="password">
         <input class="button" type="submit" value="Hochladen">
-        versteckte Datei? <input class="checkbox" type="checkbox" name="hidden"><br><hr>
+        versteckte Datei? <input class="checkbox" type="checkbox" name="hidden"><br>
+        <hr>
     </form>
 
     <div id="download-box">
@@ -34,7 +35,7 @@
         {
             $bytestotal = 0;
             $path = realpath($path);
-            if ($path !== false && $path != '' && file_exists($path)) {
+            if ($path !== false && $path != "" && file_exists($path)) {
                 foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object) {
                     $bytestotal += $object->getSize();
                 }
@@ -42,10 +43,10 @@
             return $bytestotal;
         }
 
-        $free_space = disk_free_space("/")/1000000000;
-        $dir_size = GetDirectorySize("files")/1000000000; // size in gb
+        $free_space = disk_free_space("/") / 1000000000;
+        $dir_size = GetDirectorySize("files") / 1000000000; // size in gb
         echo "Speicher: " . round($dir_size) . "GB / " . round($free_space) . "GB";
-        
+
         print "<ul id='download-list'>";
         // Loop through directory and list all files
         $dir = new DirectoryIterator("files");
@@ -54,17 +55,18 @@
                 $filename = $fileinfo->getFilename();
                 $file_mod_time = filemtime("files/" . $filename);
 
-                // Don't show hidden folder
-                if($filename != "hidden" && $filename != "metadata") {
-                    echo "<li>" . $filename . "<div class='date'> " . date("[d.m.Y H:i:s]", $file_mod_time) . "</div><br>";
-                    
-                    // Check for metadata from file
-                    if(file_exists("files/metadata/" . $filename . ".meta")) {
-                        echo "<i>" . file_get_contents("files/metadata/" . $filename . ".meta") . "</i><br>";
-                    }
-
-                    echo "<a href='files/" . $filename . "' download>Download</a> </li>";
+                // Don"t show hidden folder
+                if ($filename == "hidden" && $filename == "metadata")
+                    return;
+                
+                echo "<li>" . $filename . "<div class='date'> " . date("[d.m.Y H:i:s]", $file_mod_time) . "</div><br>";
+                
+                // Check for metadata from file
+                if (file_exists("files/metadata/" . $filename . ".meta")) {
+                    echo "<i>" . file_get_contents("files/metadata/" . $filename . ".meta") . "</i><br>";
                 }
+
+                echo "<a href='files/" . $filename . "' download>Download</a> </li>";
             }
         }
         print "</ul>"
