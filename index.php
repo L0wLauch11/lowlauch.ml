@@ -35,7 +35,7 @@
         {
             $bytestotal = 0;
             $path = realpath($path);
-            if ($path !== false && $path != "" && file_exists($path)) {
+            if ($path !== false && $path != '' && file_exists($path)) {
                 foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object) {
                     $bytestotal += $object->getSize();
                 }
@@ -43,33 +43,32 @@
             return $bytestotal;
         }
 
-        $free_space = disk_free_space("/") / 1000000000;
-        $dir_size = GetDirectorySize("files") / 1000000000; // size in gb
-        echo "Speicher: " . round($dir_size) . "GB / " . round($free_space) . "GB";
+        $free_space = round(disk_total_space('/') / 1000000000);
+        $dir_size = round((disk_total_space('/')-disk_free_space('/')) / 1000000000); // size in gb
+        echo "Speicher: {$dir_size}GB / {$free_space}GB";
 
-        print "<ul id='download-list'>";
+        print '<ul id="download-list">';
         // Loop through directory and list all files
-        $dir = new DirectoryIterator("files");
+        $dir = new DirectoryIterator('files');
         foreach ($dir as $fileinfo) {
             if (!$fileinfo->isDot()) {
                 $filename = $fileinfo->getFilename();
-                $file_mod_time = filemtime("files/" . $filename);
+                $file_mod_time = date('[d.m.Y H:i:s]', filemtime('files/' . $filename));
 
-                // Don"t show hidden folder
-                if ($filename == "hidden" && $filename == "metadata")
-                    return;
-                
-                echo "<li>" . $filename . "<div class='date'> " . date("[d.m.Y H:i:s]", $file_mod_time) . "</div><br>";
-                
-                // Check for metadata from file
-                if (file_exists("files/metadata/" . $filename . ".meta")) {
-                    echo "<i>" . file_get_contents("files/metadata/" . $filename . ".meta") . "</i><br>";
+                // Don't show hidden folder
+                if ($filename != 'hidden' && $filename != 'metadata') {
+                    echo "<li>$filename <div class='date'>$file_mod_time</div><br>";
+                    
+                    // Check for metadata from file
+                    if (file_exists('files/metadata/' . $filename . '.meta')) {
+                        echo '<i>' . file_get_contents('files/metadata/' . $filename . '.meta') . '</i><br>';
+                    }
+
+                    echo '<a href="files/' . $filename . '" download>Download</a></li>';
                 }
-
-                echo "<a href='files/" . $filename . "' download>Download</a> </li>";
             }
         }
-        print "</ul>"
+        print '</ul>'
         ?>
     </div>
 </body>
