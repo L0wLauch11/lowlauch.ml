@@ -1,8 +1,11 @@
+let allowedKeys = "ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
+
 let position = 0;
 let row = 0;
-let won = false;
+
 let canType = true;
-let allowedKeys = "ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
+let won = false;
+
 let wordCount = parseInt(document.getElementById("wordcount").textContent);
 let wordArray = new Array();
 for (let i = 0; i < wordCount; i++) {
@@ -17,10 +20,12 @@ selectedLetter.setAttribute("class", "selected");
 document.addEventListener("keydown", keyDown);
 
 function keyDown(e) {
+    let keyBackspace = 8;
+
     let key = `${e.key}`.toUpperCase();
 
-    if (position != 0 && position - row * 5 > 0 && `${e.keyCode}` == 8 /*backspace*/ ||
-        !canType && `${e.keyCode}` == 8) {
+    if (position != 0 && position - row * 5 > 0 && `${e.keyCode}` == keyBackspace ||
+        !canType && `${e.keyCode}` == keyBackspace) {
 
         canType = true;
 
@@ -32,6 +37,8 @@ function keyDown(e) {
         selectedLetter = document.getElementById(position);
         selectedLetter.setAttribute("class", "selected");
         selectedLetter.textContent = "";
+
+        return;
     }
 
     if (!allowedKeys.includes(key) || !canType)
@@ -44,9 +51,10 @@ function keyDown(e) {
     position++;
     if (position % 5 == 0 && position != 0) {
         let wordCharArray = Array.from(word);
+        let userWord = "";
         let correctCount = 0;
 
-        let wordLetter, id, element, letter, key, userWord = "";
+        let wordLetter, id, element, letter, key;
         for (let i = 4; i >= 0; i--) {
             id = position + i - 5;
             wordLetter = wordCharArray[id - row * 5];
@@ -81,6 +89,7 @@ function keyDown(e) {
             }
         }
 
+        // Update keyboard key color
         for (let i = 4; i >= 0; i--) {
             id = position + i - 5;
             element = document.getElementById(id);
@@ -98,49 +107,12 @@ function keyDown(e) {
         // Winning condition
         if (correctCount >= 5) {
             won = true;
-
-            let modal = document.getElementById("winPopup");
-            let span = document.getElementsByClassName("close")[0];
-            let closeButton = document.getElementsByClassName("closeButton")[0];
-            let badWordButton = document.getElementsByClassName("badWordButton")[0];
-
-            modal.style.display = "block";
-
-            span.onclick = () => {
-                location.reload();
-            }
-
-            closeButton.onclick = () => {
-                location.reload();
-            }
-
-            badWordButton.onclick = () => {
-                removeBadWord();
-            }
+            popupGameCondition("winPopup", 0, word);
         }
 
         // Losing condition
         if (row >= 6 && !won) {
-            let modal = document.getElementById("losePopup");
-            let span = document.getElementsByClassName("close")[1];
-            let closeButton = document.getElementsByClassName("closeButton")[1];
-            let badWordButton = document.getElementsByClassName("badWordButton")[1];
-            let loseText = document.getElementById("loseText");
-            loseText.textContent += word;
-
-            modal.style.display = "block";
-
-            span.onclick = () => {
-                location.reload();
-            }
-
-            closeButton.onclick = () => {
-                location.reload();
-            }
-
-            badWordButton.onclick = () => {
-                removeBadWord();
-            }
+            popupGameCondition("losePopup", 1, word);
         }
     }
 
@@ -154,6 +126,17 @@ function keyDown(e) {
     selectedLetter.setAttribute("class", "selected");
 }
 
+// Virtual keyboard
+let allowedKeysArray = Array.from(allowedKeys);
+for (let i = 0; i < allowedKeys.length; i++) {
+    let keyboardKey = document.getElementById(allowedKeysArray[i]);
+    keyboardKey.onclick = () => {
+        let key = allowedKeysArray[i].toLowerCase();
+        document.dispatchEvent(new KeyboardEvent('keydown', { 'key': key }));
+    }
+
+}
+
 function removeBadWord() {
     let sendString = "wordLine=" + wordId.toString();
     var xmlhttp = new XMLHttpRequest();
@@ -164,6 +147,29 @@ function removeBadWord() {
     };
     xmlhttp.open("GET", "removeword.php?" + sendString, true);
     xmlhttp.send();
+}
+
+function popupGameCondition(popupName, popupId, appendText = "") {
+    let modal = document.getElementById(popupName);
+    let span = document.getElementsByClassName("close")[popupId];
+    let closeButton = document.getElementsByClassName("closeButton")[popupId];
+    let badWordButton = document.getElementsByClassName("badWordButton")[popupId];
+    let text = document.getElementsByClassName("text")[popupId];
+    text.textContent += appendText;
+
+    modal.style.display = "block";
+
+    span.onclick = () => {
+        location.reload();
+    }
+
+    closeButton.onclick = () => {
+        location.reload();
+    }
+
+    badWordButton.onclick = () => {
+        removeBadWord();
+    }
 }
 
 // Helper functions

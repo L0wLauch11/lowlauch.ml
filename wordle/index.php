@@ -26,7 +26,7 @@
 
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Du hast gewonnen!</p>
+            <p class="text">Du hast gewonnen! Das Wort war:&nbsp;</p>
             <button class="badWordButton">scheiss Wort</button>
             <button class="closeButton">Nochmal</button>
         </div>
@@ -37,7 +37,7 @@
 
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p id="loseText">Du hast verloren! Das Wort war:&nbsp;</p>
+            <p class="text">Du hast verloren! Das Wort war:&nbsp;</p>
             <button class="badWordButton">scheiss Wort</button>
             <button class="closeButton">Nochmal</button>
         </div>
@@ -69,7 +69,7 @@
 
         // Generate "keyboard"
         $allowedKeys = "ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
-        print '<br><div id="keyboard">'; // hide it for now cos it doesnt work >:(
+        print '<br><div id="keyboard">';
         for ($i = 0; $i < strlen($allowedKeys); $i++) {
             $key = utf8_encode(substr($allowedKeys, $i, 1));
 

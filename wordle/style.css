@@ -54,6 +54,10 @@ nav ul li {
     text-align: center;
 }
 
+.keyboardkey {
+    display: inline;
+}
+
 #keyboard p {
     display: inline;
     border: 2px solid darkgray;
