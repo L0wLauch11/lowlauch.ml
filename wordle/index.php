@@ -16,7 +16,7 @@
             <span class="close">&times;</span>
             <p>Du hast gewonnen!</p>
             <button class="badWordButton">scheiss Wort</button>
-            <button class="closeButton">Ok</button>
+            <button class="closeButton">Nochmal</button>
         </div>
 
     </div>
@@ -27,7 +27,7 @@
             <span class="close">&times;</span>
             <p id="loseText">Du hast verloren! Das Wort war:&nbsp;</p>
             <button class="badWordButton">scheiss Wort</button>
-            <button class="closeButton">Ok</button>
+            <button class="closeButton">Nochmal</button>
         </div>
 
     </div>
@@ -59,7 +59,7 @@
 
         // Generate "keyboard"
         $allowedKeys = "ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
-        print '<br><div id="keyboard">';
+        print '<br><div id="keyboard">'; // hide it for now cos it doesnt work >:(
         for ($i = 0; $i < strlen($allowedKeys); $i++) {
             $key = utf8_encode(substr($allowedKeys, $i, 1));
 
@@ -67,7 +67,7 @@
                 print '<br><br>';
             }
 
-            print "<p id='$key'>$key</p>";
+            print "<p class='deselected' id='$key'>$key</p>";
         }
         print '</div>';
 

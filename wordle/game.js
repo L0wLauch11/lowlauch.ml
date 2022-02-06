@@ -8,7 +8,8 @@ let wordArray = new Array();
 for (let i = 0; i < wordCount; i++) {
     wordArray.push(document.getElementById("word" + i.toString()).textContent.toUpperCase());
 }
-let word = wordArray[getRandomInt(wordCount)];
+let wordId = getRandomInt(wordCount);
+let word = wordArray[wordId];
 
 let selectedLetter = document.getElementById(position);
 selectedLetter.setAttribute("class", "selected");
@@ -53,37 +54,46 @@ function keyDown(e) {
 
             letter = element.textContent;
             userWord += letter;
-            key = document.getElementById(letter);
 
             element.setAttribute("class", "wrong");
-            key.setAttribute("class", "wrong");
+
+            if (word.includes(letter) && element.getAttribute("class") != "correct") {
+                element.setAttribute("class", "included");
+            }
+
+            if (wordLetter == letter) {
+                element.setAttribute("class", "correct");
+                correctCount++;
+            }
 
             if (i == 0) {
                 userWord = reverseString(userWord);
 
-                if (wordArray.includes(userWord))
-                    continue;
+                if (!wordArray.includes(userWord)) {
+                    for (let j = 0; j < 5; j++) {
+                        let doesntExistElement = document.getElementById(id + j);
+                        doesntExistElement.setAttribute("class", "doesntexist");
+                    }
 
-                for (let j = 0; j < 5; j++) {
-                    let doesntExist = document.getElementById(id + j);
-                    doesntExist.setAttribute("class", "doesntexist");
-                }
-
-                canType = false;
-                row--;
-            } else {
-                if (word.includes(letter)) {
-                    element.setAttribute("class", "included");
-                    key.setAttribute("class", "included");
-                }
-
-                if (wordLetter == letter) {
-                    element.setAttribute("class", "correct");
-                    key.setAttribute("class", "correct");
-                    correctCount++;
+                    canType = false;
+                    row--;
                 }
             }
         }
+
+        for (let i = 4; i >= 0; i--) {
+            id = position + i - 5;
+            element = document.getElementById(id);
+
+            letter = element.textContent;
+            key = document.getElementById(letter);
+            if (element.getAttribute("class") != "doesntexist" && element.getAttribute("class") != "deselected") {
+                key.setAttribute("class", element.getAttribute("class"));
+            }
+
+        }
+
+        row++;
 
         // Winning condition
         if (correctCount >= 5) {
@@ -92,6 +102,7 @@ function keyDown(e) {
             let modal = document.getElementById("winPopup");
             let span = document.getElementsByClassName("close")[0];
             let closeButton = document.getElementsByClassName("closeButton")[0];
+            let badWordButton = document.getElementsByClassName("badWordButton")[0];
 
             modal.style.display = "block";
 
@@ -103,20 +114,17 @@ function keyDown(e) {
                 location.reload();
             }
 
-            window.onclick = (event) => {
-                if (event.target == modal) {
-                    location.reload();
-                }
+            badWordButton.onclick = () => {
+                removeBadWord();
             }
         }
-
-        row++;
 
         // Losing condition
         if (row >= 6 && !won) {
             let modal = document.getElementById("losePopup");
             let span = document.getElementsByClassName("close")[1];
             let closeButton = document.getElementsByClassName("closeButton")[1];
+            let badWordButton = document.getElementsByClassName("badWordButton")[1];
             let loseText = document.getElementById("loseText");
             loseText.textContent += word;
 
@@ -130,10 +138,8 @@ function keyDown(e) {
                 location.reload();
             }
 
-            window.onclick = (event) => {
-                if (event.target == modal) {
-                    location.reload();
-                }
+            badWordButton.onclick = () => {
+                removeBadWord();
             }
         }
     }
@@ -146,6 +152,18 @@ function keyDown(e) {
     }
 
     selectedLetter.setAttribute("class", "selected");
+}
+
+function removeBadWord() {
+    let sendString = "wordLine=" + wordId.toString();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Das Wort wurde entfernt.");
+        }
+    };
+    xmlhttp.open("GET", "removeword.php?" + sendString, true);
+    xmlhttp.send();
 }
 
 // Helper functions
