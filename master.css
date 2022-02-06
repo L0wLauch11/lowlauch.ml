@@ -12,6 +12,10 @@ html {
     min-width: 320px;
 }
 
+h1 {
+    text-align: center;
+}
+
 body {
     margin-top: 64px;
     overflow-y: scroll;

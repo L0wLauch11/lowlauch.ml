@@ -35,7 +35,7 @@
     echo '<pre id=uploadedfile>';
     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploaddir . $uploadfile)) {
         echo "Fertig hochgeladen.\n";
-        header('Location: index.php');
+        header('Location: filemirror.php');
     } else {
         echo 'Upload fehlgeschlagen';
     }
