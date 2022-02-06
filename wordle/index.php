@@ -10,6 +10,18 @@
 </head>
 
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="https://github.com/L0wLauch11/lowlauch.ml" target="_blank">source</a></li>
+                <li><a href="../index.php">homepage</a></li>
+                <li><a href="../filemirror.php">file mirror</a></li>
+                <li><a href="../basedboard.php">based board</a></li>
+                <li><a href="index.php">wordle klon</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div id="winPopup" class="modal">
 
         <div class="modal-content">
@@ -33,9 +45,7 @@
     </div>
 
     <div id="content">
-        <header>
-            <h1 id="title">Wordle</h1>
-        </header>
+        <h1 id="title">Wordle</h1>
 
         <?php
 
