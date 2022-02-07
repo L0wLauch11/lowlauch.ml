@@ -41,6 +41,22 @@ nav ul li {
     align-self: center;
 }
 
+@media only screen and (max-width: 600px) {
+    #content {
+        padding: 0px;
+        box-shadow: 0px 0px 0px 0px;
+        border-radius: 8px;
+        max-width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        align-self: center;
+    }
+}
+
+#board {
+    margin: auto;
+}
+
 #board th,
 #board td {
     border: 2px solid darkgray;
@@ -52,10 +68,12 @@ nav ul li {
 }
 
 #keyboard {
-    display: block;
-    width: 350px;
     text-align: center;
-    margin: auto;
+    width: 380px;
+    height: auto;
+    margin: 0 auto;
+    padding: 0px;
+    position: relative;
 }
 
 #keyboard button {
@@ -63,10 +81,11 @@ nav ul li {
     color: inherit;
     border: 2px solid darkgray;
     border-radius: 4px;
-    height: 48px;
+    height: 44px;
     width: 32px;
-    padding-top: 12px;
+    padding-top: 10px;
     margin: 1px;
+    left: 0px;
 }
 
 .hidden {

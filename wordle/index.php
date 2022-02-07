@@ -69,11 +69,15 @@
         print '</table>';
 
         // Generate "keyboard"
-        $allowed_keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ<";
+        $allowed_keys = "QWERTZUIOPÜ_ASDFGHJKLÖÄ_YXCVBNM<";
         print '<br><div id="keyboard">';
         for ($i = 0; $i < strlen($allowed_keys); $i++) {
             $key = utf8_encode(substr($allowed_keys, $i, 1));
-            print "<button class='deselected' id='$key'>$key</p>";
+            if($key == "_") {
+                print '<div></div>';
+            } else {
+                print "<button class='deselected' id='$key'>$key</p>";
+            }
         }
         print '</div>';
 
