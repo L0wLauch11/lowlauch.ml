@@ -48,9 +48,9 @@
     <div id="content">
         <h1 id="title">Wordle</h1>
 
+        <!-- Game board -->
         <?php
 
-        // Generate board
         $length = 5;
         $rows = 6;
         $id = 0;
@@ -70,13 +70,13 @@
 
         // Generate "keyboard"
         $allowed_keys = "QWERTZUIOPÜ_ASDFGHJKLÖÄ_YXCVBNM<";
-        print '<br><div id="keyboard">';
+        print "\n\n\t\t<!-- Keyboard -->\n\t\t<br><div id='keyboard'>";
         for ($i = 0; $i < strlen($allowed_keys); $i++) {
             $key = utf8_encode(substr($allowed_keys, $i, 1));
             if($key == "_") {
-                print '<div></div>';
+                print '<div></div>'; // empty div works better as <br> for some reason
             } else {
-                print "<button class='deselected' id='$key'>$key</p>";
+                print "<button class='deselected' id='$key'>$key</button>";
             }
         }
         print '</div>';
@@ -86,17 +86,19 @@
         $length = count($words);
 
         $i = 0;
+        print "\n\n\t\t<!-- Word list -->\n\t\t";
         foreach ($words as $word) {
             $word = str_replace("\r\n", "", $word);
             print "<p class='hidden' id='word$i'>$word</p>";
             $i++;
         }
 
-        print "<p class='hidden' id='wordcount'>$length</p>";
+        print "<p class='hidden' id='wordcount'>$length</p>\n";
 
         ?>
     </div>
 
+    <!-- Game source -->
     <script src="game.js" type="text/javascript"></script>
 </body>
 
