@@ -4,6 +4,7 @@ html {
 
 body {
     margin: 0px;
+    margin-bottom: 16px;
 }
 
 nav {
@@ -51,20 +52,21 @@ nav ul li {
 }
 
 #keyboard {
+    display: block;
+    width: 350px;
     text-align: center;
+    margin: auto;
 }
 
-.keyboardkey {
-    display: inline;
-}
-
-#keyboard p {
-    display: inline;
+#keyboard button {
+    font-size: 16px;
+    color: inherit;
     border: 2px solid darkgray;
     border-radius: 4px;
-    font-size: 18px;
-    padding: 3px;
-    margin-left: 1px;
+    height: 48px;
+    width: 32px;
+    padding-top: 12px;
+    margin: 1px;
 }
 
 .hidden {

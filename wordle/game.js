@@ -20,12 +20,11 @@ selectedLetter.setAttribute("class", "selected");
 document.addEventListener("keydown", keyDown);
 
 function keyDown(e) {
-    let keyBackspace = 8;
-
     let key = `${e.key}`.toUpperCase();
 
-    if (position != 0 && position - row * 5 > 0 && `${e.keyCode}` == keyBackspace ||
-        !canType && `${e.keyCode}` == keyBackspace) {
+    // Removing a letter
+    if (`${e.key}` == "Backspace" || `${e.key}` == "<")
+    if (position != 0 && position - row * 5 > 0 || !canType) {
 
         canType = true;
 
@@ -41,79 +40,16 @@ function keyDown(e) {
         return;
     }
 
-    if (!allowedKeys.includes(key) || !canType)
+    if (!allowedKeys.includes(key) || !canType || `${e.key}` == "Enter")
         return;
 
     selectedLetter.textContent = key;
     selectedLetter.setAttribute("class", "deselected");
 
-    // Gameplay
+    // Update game every new row
     position++;
     if (position % 5 == 0 && position != 0) {
-        let wordCharArray = Array.from(word);
-        let userWord = "";
-        let correctCount = 0;
-
-        let wordLetter, id, element, letter, key;
-        for (let i = 4; i >= 0; i--) {
-            id = position + i - 5;
-            wordLetter = wordCharArray[id - row * 5];
-            element = document.getElementById(id);
-
-            letter = element.textContent;
-            userWord += letter;
-
-            element.setAttribute("class", "wrong");
-
-            if (word.includes(letter) && element.getAttribute("class") != "correct") {
-                element.setAttribute("class", "included");
-            }
-
-            if (wordLetter == letter) {
-                element.setAttribute("class", "correct");
-                correctCount++;
-            }
-
-            if (i == 0) {
-                userWord = reverseString(userWord);
-
-                if (!wordArray.includes(userWord)) {
-                    for (let j = 0; j < 5; j++) {
-                        let doesntExistElement = document.getElementById(id + j);
-                        doesntExistElement.setAttribute("class", "doesntexist");
-                    }
-
-                    canType = false;
-                    row--;
-                }
-            }
-        }
-
-        // Update keyboard key color
-        for (let i = 4; i >= 0; i--) {
-            id = position + i - 5;
-            element = document.getElementById(id);
-
-            letter = element.textContent;
-            key = document.getElementById(letter);
-            if (element.getAttribute("class") != "doesntexist" && element.getAttribute("class") != "deselected") {
-                key.setAttribute("class", element.getAttribute("class"));
-            }
-
-        }
-
-        row++;
-
-        // Winning condition
-        if (correctCount >= 5) {
-            won = true;
-            popupGameCondition("winPopup", 0, word);
-        }
-
-        // Losing condition
-        if (row >= 6 && !won) {
-            popupGameCondition("losePopup", 1, word);
-        }
+        gameUpdate();
     }
 
     // Select next letter
@@ -127,14 +63,83 @@ function keyDown(e) {
 }
 
 // Virtual keyboard
-let allowedKeysArray = Array.from(allowedKeys);
-for (let i = 0; i < allowedKeys.length; i++) {
+let allowedKeysArray = Array.from(allowedKeys + "<");
+for (let i = 0; i < allowedKeysArray.length; i++) {
     let keyboardKey = document.getElementById(allowedKeysArray[i]);
     keyboardKey.onclick = () => {
         let key = allowedKeysArray[i].toLowerCase();
+        console.log(key);
         document.dispatchEvent(new KeyboardEvent('keydown', { 'key': key }));
     }
 
+}
+
+function gameUpdate() {
+    let wordCharArray = Array.from(word);
+    let userWord = "";
+    let correctCount = 0;
+
+    let wordLetter, id, element, letter, key;
+    for (let i = 4; i >= 0; i--) {
+        id = position + i - 5;
+        wordLetter = wordCharArray[id - row * 5];
+        element = document.getElementById(id);
+
+        letter = element.textContent;
+        userWord += letter;
+
+        element.setAttribute("class", "wrong");
+
+        if (word.includes(letter) && element.getAttribute("class") != "correct") {
+            element.setAttribute("class", "included");
+        }
+
+        if (wordLetter == letter) {
+            element.setAttribute("class", "correct");
+            correctCount++;
+        }
+
+        // Mark word red if the word doesn't exist in the list
+        if (i == 0) {
+            userWord = reverseString(userWord);
+
+            if (!wordArray.includes(userWord)) {
+                for (let j = 0; j < 5; j++) {
+                    let doesntExistElement = document.getElementById(id + j);
+                    doesntExistElement.setAttribute("class", "doesntexist");
+                }
+
+                canType = false;
+                row--;
+            }
+        }
+    }
+
+    // Update keyboard key color
+    for (let i = 4; i >= 0; i--) {
+        id = position + i - 5;
+        element = document.getElementById(id);
+
+        letter = element.textContent;
+        key = document.getElementById(letter);
+        if (element.getAttribute("class") != "doesntexist" && element.getAttribute("class") != "deselected") {
+            key.setAttribute("class", element.getAttribute("class"));
+        }
+
+    }
+
+    row++;
+
+    // Winning condition
+    if (correctCount >= 5) {
+        won = true;
+        popupGameCondition("winPopup", 0, word);
+    }
+
+    // Losing condition
+    if (row >= 6 && !won) {
+        popupGameCondition("losePopup", 1, word);
+    }
 }
 
 function removeBadWord() {

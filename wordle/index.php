@@ -5,6 +5,7 @@
     <title>Wordle</title>
 
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="style.css" rel="stylesheet">
 </head>
@@ -68,16 +69,11 @@
         print '</table>';
 
         // Generate "keyboard"
-        $allowedKeys = "ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ";
+        $allowed_keys = "ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÜ<";
         print '<br><div id="keyboard">';
-        for ($i = 0; $i < strlen($allowedKeys); $i++) {
-            $key = utf8_encode(substr($allowedKeys, $i, 1));
-
-            if ($i == floor(strlen($allowedKeys)/1.75)) {
-                print '<br><br>';
-            }
-
-            print "<p class='deselected' id='$key'>$key</p>";
+        for ($i = 0; $i < strlen($allowed_keys); $i++) {
+            $key = utf8_encode(substr($allowed_keys, $i, 1));
+            print "<button class='deselected' id='$key'>$key</p>";
         }
         print '</div>';
 
