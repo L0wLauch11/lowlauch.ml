@@ -1,0 +1,42 @@
+:root {
+    --color-html-background: rgb(240, 240, 240);
+    --color-background: white;
+    --color-font: black;
+    --color-highlight1: dodgerblue;
+    --color-highlight2: cornflowerblue;
+    --color-border: #888;
+    --color-gray: #666;
+    --color-button: gainsboro;
+    --color-textbox: white;
+    --color-textbox-outline: gainsboro;
+    --color-box-background: white;
+
+    --color-wordle-selected: gainsboro;
+    --color-wordle-deselected: white;
+    --color-wordle-correct: greenyellow;
+    --color-wordle-wrong: darkgray;
+    --color-wordle-doesntexist: crimson;
+    --color-wordle-included: rgb(255, 190, 100);
+    
+    --border-rad: 4px;
+}
+
+[data-theme="dark"] {
+    --color-html-background: rgb(15, 15, 15);
+    --color-background: rgb(24, 24, 24);
+    --color-border: rgb(50, 50, 50);
+    --color-font: white;
+    --color-button: rgb(50, 50, 50);
+    --color-textbox: rgb(50, 50, 50);
+    --color-textbox-outline: rgb(60, 60, 60);
+    --color-box-background: rgb(30, 30, 30);
+
+    --color-wordle-selected: rgb(40, 40, 40);
+    --color-wordle-deselected: rgb(24, 24, 24);
+    --color-wordle-correct: darkgreen;
+    --color-wordle-wrong: black;
+    --color-wordle-doesntexist: crimson;
+    --color-wordle-included: rgb(255, 121, 59);
+
+    --border-rad: 0px;
+}
