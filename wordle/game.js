@@ -68,7 +68,6 @@ for (let i = 0; i < allowedKeysArray.length; i++) {
     let keyboardKey = document.getElementById(allowedKeysArray[i]);
     keyboardKey.onclick = () => {
         let key = allowedKeysArray[i].toLowerCase();
-        console.log(key);
         document.dispatchEvent(new KeyboardEvent('keydown', { 'key': key }));
     }
 
@@ -122,7 +121,7 @@ function gameUpdate() {
 
         letter = element.textContent;
         key = document.getElementById(letter);
-        if (element.getAttribute("class") != "doesntexist" && element.getAttribute("class") != "deselected") {
+        if (element.getAttribute("class") != "doesntexist" && element.getAttribute("class") != "deselected" && key.getAttribute("class") != "correct") {
             key.setAttribute("class", element.getAttribute("class"));
         }
 
