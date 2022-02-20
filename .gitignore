@@ -1,4 +1,4 @@
-files/
-posts/
-uploadpassword.txt
+filemirror/files/
+basedboard/posts/
+filemirror/uploadpassword.txt
 .vscode/

@@ -12,6 +12,7 @@
 
     if ($password != file_get_contents('uploadpassword.txt')) {
         echo 'Falsches Passwort!';
+        echo '<button onclick="window.location.href=\'filemirror.php\';">>Zurück</button>';
         return;
     }
 
@@ -38,6 +39,7 @@
         header('Location: filemirror.php');
     } else {
         echo 'Upload fehlgeschlagen';
+        echo '<button onclick="window.location.href=\'filemirror.php\';">>Zurück</button>';
     }
 
     echo 'Debugging Informationen:';

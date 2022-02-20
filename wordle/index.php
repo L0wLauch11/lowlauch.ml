@@ -7,32 +7,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="/variables.css" rel="stylesheet">
-    <link href="/master.css" rel="stylesheet">
+    <link href="/style/variables.css" rel="stylesheet">
+    <link href="/style/master.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 </head>
 
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="https://github.com/L0wLauch11/lowlauch.ml" target="_blank">source</a></li>
-                <li><a href="/index.php">homepage</a></li>
-                <li><a href="/filemirror.php">file mirror</a></li>
-                <li><a href="/basedboard.php">based board</a></li>
-                <li><a href="index.php">wordle klon</a></li>
-                <li>
-                    <div class="theme-switch-wrapper">
-                        <label class="theme-switch" for="checkbox">
-                            <input type="checkbox" id="checkbox" />
-                            <img id="theme-switch-image" src="/img/sun.svg" width="16px">
-                        </label>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-
-        <script src="/themes.js"></script>
+        <?php
+        $root = $_SERVER["DOCUMENT_ROOT"];
+        include "$root/navigation.html";
+        ?>
     </header>
 
     <div id="winPopup" class="modal">

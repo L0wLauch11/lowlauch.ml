@@ -7,15 +7,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="variables.css" rel="stylesheet">
-    <link href="master.css" rel="stylesheet">
+    <link href="/style/variables.css" rel="stylesheet">
+    <link href="/style/master.css" rel="stylesheet">
     <link href="downloadmirror.css" rel="stylesheet">
 </head>
 
 <body>
     <header>
         <?php
-        include "navigation.html";
+        $root = $_SERVER["DOCUMENT_ROOT"];
+        include "$root/navigation.html";
         ?>
     </header>
 
