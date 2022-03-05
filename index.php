@@ -21,7 +21,8 @@
 <body>
     <header>
         <?php
-        include 'navigation.html';
+        $root = $_SERVER["DOCUMENT_ROOT"];
+        include "$root/navigation.html";
         ?>
     </header>
 

@@ -22,16 +22,18 @@
 
     <div id="container">
         <h1>coole downloads</h1>
-
-        <form enctype="multipart/form-data" action="uploadfile.php" method="POST">
-            <input type="hidden" name="MAX_FILE_SIZE" value="107400000000"> <!-- Max filesize: 100GB -->
-            Eigene Dateien hochladen: <input class="button" name="userfile" type="file"> <br><br>
-            Passwort: <input class="textbox" type="password" name="password">
-            <input class="button" type="submit" value="Hochladen">
-            versteckte Datei? <input class="checkbox" type="checkbox" name="hidden"><br><br><br>
-            <hr><br>
-        </form>
-
+        <div class="subcontainer">
+            <h2>Datei hochladen</h2>
+            <form enctype="multipart/form-data" action="uploadfile.php" method="POST">
+                <input type="hidden" name="MAX_FILE_SIZE" value="107400000000"> <!-- Max filesize: 100GB -->
+                Datei: <input class="button" name="userfile" type="file"><br>
+                Passwort: <input class="textbox" type="password" name="password">
+                versteckte Datei? <input class="checkbox" type="checkbox" name="hidden"><br><br>
+                <input class="button" type="submit" value="Hochladen"><br><br>
+            </form>
+        </div>
+        <hr><br>
+    
         <div id="download-box">
             <?php
             function GetDirectorySize($path)
@@ -48,7 +50,7 @@
 
             $free_space = round(disk_total_space('/') / 1000000000);
             $dir_size = round((disk_total_space('/')-disk_free_space('/')) / 1000000000); // size in gb
-            echo "Speicher: {$dir_size}GB / {$free_space}GB";
+            echo "Speicher:&nbsp;&nbsp;<progress value='$dir_size' max='$free_space'></progress>&nbsp;&nbsp;&nbsp;{$dir_size}GB / {$free_space}GB";
 
             print '<ul id="download-list">';
             // Loop through directory and list all files
