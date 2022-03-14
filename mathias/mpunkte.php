@@ -65,7 +65,7 @@
         <li>
             <form action='addperson.php'>
                 <input class='textbox' name='name' type='text' value='Person'>
-                <input class='button' type='submit' value='✔'><br><br>
+                <input class='button' type='submit' value='Hinzufügen'><br><br>
             </form>
         </li>
         ";
