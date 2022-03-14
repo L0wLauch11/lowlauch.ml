@@ -16,6 +16,11 @@
         font-size: 48px;
         font-family: 'Comic Sans MS';
     }
+
+    #mpunkte-link {
+        margin-top: 100%;
+        padding-left: 32px;
+    }
 </style>
 
 <body>
@@ -27,9 +32,11 @@
     </header>
 
     <h1>gaming seite</h1>
-    <marquee>
+    <marquee scrollamount="1" scrolldelay="1" truespeed>
         <h2 id="hallo">hallo</h2>
     </marquee>
+
+    <div id="mpunkte-link">secret :O <a href="/mathias/mpunkte.php">m</a></div>
 </body>
 
 </html>

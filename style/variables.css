@@ -4,7 +4,7 @@
     --color-font: black;
     --color-highlight1: dodgerblue;
     --color-highlight2: cornflowerblue;
-    --color-border: #888;
+    --color-border: #aaa;
     --color-gray: #666;
     --color-button: gainsboro;
     --color-textbox: white;
@@ -18,7 +18,7 @@
     --color-wordle-doesntexist: crimson;
     --color-wordle-included: rgb(255, 190, 100);
     
-    --border-rad: 4px;
+    --border-rad: 1px;
 }
 
 [data-theme="dark"] {

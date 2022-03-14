@@ -147,6 +147,7 @@ function removeBadWord() {
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             alert("Das Wort wurde entfernt.");
+            location.reload();
         }
     };
     xmlhttp.open("GET", "removeword.php?" + sendString, true);
