@@ -47,7 +47,7 @@
                     <p>
                         <span class='name'>${entry[0]}</span>
                         <span class='points'>
-                            ${entry[1]}
+                            <span id='$filename'>${entry[1]}</span>
                             <button onclick='addMpunkt(\"$filename\", 1)' class='button'>+</button>
                             <button onclick='addMpunkt(\"$filename\", -1)' class='button'>-</button>
                         </span>
