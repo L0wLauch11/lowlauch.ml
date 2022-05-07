@@ -111,6 +111,10 @@ text
                     return;
             }
 
+            // This guy was a bot; I know this is not good protection against bots
+            if ($username == "HenryCax")
+                return;
+
             // Write to file
             file_put_contents("posts/p_$file_count.txt", $content);
         }
