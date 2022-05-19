@@ -31,12 +31,31 @@
         ?>
     </header>
 
+    <?php
+    // This is here for shorter file links, done simply by redirecting
+    $file = $_GET['download'];
+    $file_is_hidden = $_GET['hidden'];
+
+    if (!empty($file)) {
+        $hidden = (!empty($file_is_hidden) && $file_is_hidden == 1);
+        
+        if ($hidden) {
+            $file_link = "filemirror/files/hidden/$file";
+        } else {
+            $file_link = "filemirror/files/$file";
+        }
+
+        header("Location: $file_link");
+            die();
+    }
+
+    ?>
+
     <h1>gaming seite</h1>
     <marquee scrollamount="1" scrolldelay="1" truespeed>
         <h2 id="hallo">hallo</h2>
     </marquee>
-
-    <div id="mpunkte-link">secret :O <a href="/mathias/mpunkte.php">m</a></div>
+    
 </body>
 
 </html>

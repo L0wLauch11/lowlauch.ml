@@ -69,7 +69,7 @@
                             echo '<i>' . file_get_contents("files/metadata/$filename.meta") . '</i><br>';
                         }
 
-                        echo "<a href='files/$filename' download>Download</a></li>";
+                        echo "<a href='/?download=$filename' download>Download</a></li>";
                     }
                 }
             }
