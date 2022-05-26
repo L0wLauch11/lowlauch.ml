@@ -33,8 +33,8 @@
 
     <?php
     // This is here for shorter file links, done simply by redirecting
-    $file = $_GET['download'];
-    $file_is_hidden = $_GET['hidden'];
+    $file = empty($_GET['download']) ? $_GET['d'] : $_GET['download']; // d short for download
+    $file_is_hidden = empty($_GET['hidden']) ? $_GET['h'] : $_GET['hidden']; // h short for hidden
 
     if (!empty($file)) {
         $hidden = (!empty($file_is_hidden) && $file_is_hidden == 1);
@@ -48,7 +48,6 @@
         header("Location: $file_link");
             die();
     }
-
     ?>
 
     <h1>gaming seite</h1>
