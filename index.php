@@ -9,19 +9,27 @@
 
     <link href="/style/variables.css" rel="stylesheet">
     <link href="/style/master.css" rel="stylesheet">
+
+    <style>
+        #hallo {
+            font-size: 48px;
+            font-family: 'Comic Sans MS';
+            text-align: center;
+            text-shadow: -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 1px 1px 1px black;
+        }
+
+        #trans-flag {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            border-radius: 16px;
+            border-width: 2px;
+            border-color: #000000;
+            border-style: solid;
+        }
+    </style>
 </head>
-
-<style>
-    #hallo {
-        font-size: 48px;
-        font-family: 'Comic Sans MS';
-    }
-
-    #mpunkte-link {
-        margin-top: 100%;
-        padding-left: 32px;
-    }
-</style>
 
 <body>
     <header>
@@ -32,6 +40,7 @@
     </header>
 
     <?php
+
     // This is here for shorter file links, done simply by redirecting
     $file = empty($_GET['download']) ? $_GET['d'] : $_GET['download']; // d short for download
     $file_is_hidden = empty($_GET['hidden']) ? $_GET['h'] : $_GET['hidden']; // h short for hidden
@@ -46,15 +55,14 @@
         }
 
         header("Location: $file_link");
-            die();
+        die();
     }
+    
     ?>
 
-    <h1>gaming seite</h1>
-    <marquee scrollamount="1" scrolldelay="1" truespeed>
-        <h2 id="hallo">hallo</h2>
-    </marquee>
-    
-</body>
+    <!---<h1>gaming seite</h1>-->
+    <h2 id="hallo" class="marquee"><span style='color:#00FFF7;'>t</span><span style='color:#13EEF7;'>r</span><span style='color:#27DDF7;'>a</span><span style='color:#3ACCF7;'>n</span><span style='color:#4EBBF7;'>s</span> <span style='color:#7599F7;'>r</span><span style='color:#8989F7;'>i</span><span style='color:#9C78F7;'>g</span><span style='color:#B067F7;'>h</span><span style='color:#C456F7;'>t</span><span style='color:#D745F7;'>s</span><span style='color:#EB34F7;'>!</span></h2>
+    <img id="trans-flag" src="img/flag-trans.png" alt="transgender flag" srcset="">
+</body> 
 
 </html>
