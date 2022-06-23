@@ -17,46 +17,58 @@
 
         <?php
 
-        $password = $_POST['password'];
-        $file_hidden = $_POST['hidden'];
-        $date_now = date('_d-m-Y H-i-s');
+        set_time_limit(0);
 
-        if ($password != file_get_contents('uploadpassword.txt')) {
-            echo 'Falsches Passwort!';
-            echo '<br><br><button class="button" onclick="window.location.href=\'filemirror.php\';">Zurück</button>';
-            return;
-        }
+        if(isset($_POST['submit'])) {
+            $password = $_POST['password'];
+            $file_hidden = $_POST['hidden'];
+            $date_now = date('_d-m-Y H-i-s');
 
-        $uploaddir = $file_hidden ? 'files/hidden/' : 'files/';
-        $uploadfile = basename($_FILES['userfile']['name']);
+            if ($password != file_get_contents('uploadpassword.txt')) {
+                echo 'Falsches Passwort!';
+                echo '<br><br><button class="button" onclick="window.location.href=\'filemirror.php\';">Zurück</button>';
+                return;
+            }
 
-        $uploadfile_seperated = explode('.', $uploadfile);
-        $uploadfile_extension = $uploadfile_seperated[array_key_last($uploadfile_seperated)];
-        $uploadfile_name = str_replace($uploadfile_extension, '', $uploadfile);
+            $uploaddir = $file_hidden ? 'files/hidden/' : 'files/';
+            $uploadfile = basename($_FILES['userfile']['name']);
 
-        // Treat duplicate files properly
-        if (file_exists($uploaddir . $uploadfile)) {
-            $uploadfile = "$uploadfile_name $date_now.$uploadfile_extension";
-        }
+            $uploadfile_seperated = explode('.', $uploadfile);
+            $uploadfile_extension = $uploadfile_seperated[array_key_last($uploadfile_seperated)];
+            $uploadfile_name = str_replace($uploadfile_extension, '', $uploadfile);
 
-        // Uploading metadata
-        if ($uploadfile_extension == 'meta') {
-            $uploaddir = 'files/metadata/';
-        }
+            // Treat duplicate files properly
+            if (file_exists($uploaddir . $uploadfile)) {
+                $uploadfile = "$uploadfile_name{$date_now}.$uploadfile_extension";
+            }
 
-        
-        if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploaddir . $uploadfile)) {
-            echo "Fertig hochgeladen.\n";
-            header('Location: filemirror.php');
+            // Uploading metadata
+            if ($uploadfile_extension == 'meta') {
+                $uploaddir = 'files/metadata/';
+            }
+
+            if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploaddir . $uploadfile)) {
+                $uploadfile_link = $uploaddir . $uploadfile;
+                $int_hidden = $file_hidden ? 1 : 0;
+
+                echo '<div class="subcontainer" style="text-align: center; display: block; margin-left: auto; margin-right: auto;">';
+
+                echo "<p>Fertig hochgeladen.</p>
+                    <a href='/?download=$uploadfile&hidden=$int_hidden'>Datei Link</a>
+                ";
+
+                echo '<br><br><button class="button" onclick="window.location.href=\'filemirror.php\';">Zurück</button></div>';
+            } else {
+                echo '<p>Upload fehlgeschlagen</p>';
+                echo '<pre id=uploadedfile>';
+                print_r($_FILES);
+                print '</pre>';
+
+                echo '<br><br><button class="button" onclick="window.location.href=\'filemirror.php\';">Zurück</button>';
+            }
         } else {
-            echo '<p>Upload fehlgeschlagen</p>';
-            echo '<pre id=uploadedfile>';
-            print_r($_FILES);
-            print '</pre>';
-
-            echo '<br><br><button class="button" onclick="window.location.href=\'filemirror.php\';">Zurück</button>';
+            echo "Datei eventuell zu groß; Maximale Dateigröße: <b>20GB</b>";
         }
-
         ?>
     </div>
 </body>

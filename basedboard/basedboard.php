@@ -111,8 +111,8 @@ text
                     return;
             }
 
-            // This guy was a bot; I know this is not good protection against bots
-            if ($username == "HenryCax")
+            // These guys were bots; I know this is not good protection against bots
+            if ($username == "HenryCax" || $username == "AlenaKi")
                 return;
 
             // Write to file

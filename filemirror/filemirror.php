@@ -29,7 +29,7 @@
                 Datei: <input class="button" name="userfile" type="file"><br>
                 Passwort: <input class="textbox" type="password" name="password">
                 versteckte Datei? <input class="checkbox" type="checkbox" name="hidden"><br><br>
-                <input class="button" type="submit" value="Hochladen"><br><br>
+                <input class="button" type="submit" name="submit" value="Hochladen"><br><br>
             </form>
         </div>
         <hr><br>
