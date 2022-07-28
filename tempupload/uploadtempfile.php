@@ -21,11 +21,12 @@
 
         if(isset($_POST['submit'])) {
             $date_now = time();
-
             $uploaddir = "files/$date_now";
             $uploadfile = basename($_FILES['userfile']['name']);
 
-            mkdir("$uploaddir");
+            if (!file_exists("$uploaddir")){
+                mkdir("$uploaddir");
+            }
 
             $uploadfile_seperated = explode('.', $uploadfile);
             $uploadfile_extension = $uploadfile_seperated[array_key_last($uploadfile_seperated)];
